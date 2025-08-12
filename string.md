@@ -50,6 +50,7 @@ char nome_personagem[20] = "Sova";
 ```
 *Aqui, `nome_personagem` é um vetor.*
 
+---
 **Forma 2: O Ponteiro para `char`**
 Aponta para um texto que já existe em uma área somente leitura da memória.
 
