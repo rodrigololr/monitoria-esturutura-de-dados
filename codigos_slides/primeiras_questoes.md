@@ -78,3 +78,20 @@ Crie um programa com um array de livros **já ordenado** pelo título. O seu obj
 2. Encontre a posição correta onde o novo livro deve ser inserido.
 3. Desloque os elementos necessários para a direita para abrir espaço.
 4. Insira o novo livro na posição correta e exiba o array final.
+
+---
+
+## **Como a `strcmp` "Pensa"?**
+
+A função `strcmp` não diz apenas se duas strings são iguais. Ela nos informa sobre a *ordem alfabética* entre elas.
+
+Pense nela como a subtração `a - b` para letras:
+
+- `strcmp(str1, str2)` retorna **< 0** (negativo)
+  - Se `str1` vem **ANTES** de `str2` no alfabeto. (Ex: "Alex" vs "Bia")
+
+- `strcmp(str1, str2)` retorna **> 0** (positivo)
+  - Se `str1` vem **DEPOIS** de `str2` no alfabeto. (Ex: "Carlos" vs "Bia")
+
+- `strcmp(str1, str2)` retorna **0**
+  - Se `str1` é **IGUAL** a `str2`. (Ex: "Larissa" vs "Larissa")
