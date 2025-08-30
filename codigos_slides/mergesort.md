@@ -18,7 +18,7 @@ E agora, vamos ver uma demonstração de como o algoritmo funciona...
 
 ### **Merge Sort: Como Pensa?**
 
-Um algoritmo de **"Dividir para Conquistar"**. É extremamente eficiente e estável.
+Um algoritmo de **"dividir para conquistar"**. É extremamente eficiente e estável.
 
 - **Dividir:** Quebra o vetor recursivamente ao meio, até que restem apenas sub-vetores de tamanho 1.
 - **Conquistar:** Começa a **juntar (merge)** esses sub-vetores dois a dois, de forma ordenada, criando sub-vetores maiores e ordenados.
@@ -30,31 +30,46 @@ Um algoritmo de **"Dividir para Conquistar"**. É extremamente eficiente e está
 
 ```c
 #include <stdio.h>
-#include <stdlib.h>
 
-void merge(int arr[], int esq, int meio, int dir) {
-    int n1 = meio - esq + 1;
-    int n2 = dir - meio;
-    int E[n1], D[n2];
+void merge(int arr[], int inicio, int meio, int fim) {
+    int n1 = meio - inicio + 1;          // A metade esquerda já ordenada é [2, 10, 15].
+    int n2 = fim - meio;                // A metade direita já ordenada é [4, 9, 12].
+    int E[n1], D[n2];                   
 
-    for (int i = 0; i < n1; i++) E[i] = arr[esq + i];
-    for (int j = 0; j < n2; j++) D[j] = arr[meio + 1 + j];
-
-    int i = 0, j = 0, k = esq;
-    while (i < n1 && j < n2) {
-        if (E[i] <= D[j]) arr[k++] = E[i++];
-        else arr[k++] = D[j++];
+    for (int i = 0; i < n1; i++){
+        E[i] = arr[inicio + i];
     }
-    while (i < n1) arr[k++] = E[i++];
-    while (j < n2) arr[k++] = D[j++];
+
+    for (int j = 0; j < n2; j++) {
+        D[j] = arr[meio + 1 + j];
+    }
+
+    int ponteiro_esquerda = 0;
+    int ponteiro_direita = 0;
+    int k = inicio;
+
+    while (ponteiro_esquerda < n1 && ponteiro_direita < n2) { // E = [2, 10, 15] e D = [4, 9, 12]
+        if (E[ponteiro_esquerda] <= D[ponteiro_direita]) {
+            arr[k++] = E[ponteiro_esquerda++];
+        } else {
+            arr[k++] = D[ponteiro_direita++];
+        }
+    }
+    // whiles para pegar os elementos que sobraram no vetor que não acabou
+    while (ponteiro_esquerda < n1) {
+        arr[k++] = E[ponteiro_esquerda++];
+    }
+    while (ponteiro_direita < n2) {
+        arr[k++] = D[ponteiro_direita++];
+    }
 }
 
-void mergeSort(int arr[], int esq, int dir) {
-    if (esq < dir) {
-        int meio = esq + (dir - esq) / 2;
-        mergeSort(arr, esq, meio);
-        mergeSort(arr, meio + 1, dir);
-        merge(arr, esq, meio, dir);
+void mergeSort(int arr[], int inicio, int fim){
+    if (inicio < fim) {
+        int meio = inicio + (fim - inicio) / 2;
+        mergeSort(arr, inicio, meio);
+        mergeSort(arr, meio + 1, fim);
+        merge(arr, inicio, meio, fim);
     }
 }
 ```
@@ -62,7 +77,6 @@ void mergeSort(int arr[], int esq, int dir) {
 ---
 ### **Merge Sort: Complexidade**
 - **Tempo:** O(n log n) em todos os casos (pior, médio e melhor).
-- **Espaço:** O(n), pois usa espaço extra para os sub-vetores temporários.
 - **Estável:** Sim, mantém a ordem relativa dos elementos iguais.
 - **Uso:** Muito eficiente para grandes conjuntos de dados, especialmente quando a memória não é uma limitação.
 - **Importante:** Merge Sort é um algoritmo de ordenação estável, o que significa que ele preserva a ordem relativa dos elementos iguais. Isso é especialmente útil em aplicações onde a estabilidade é necessária, como em ordenações múltiplas.

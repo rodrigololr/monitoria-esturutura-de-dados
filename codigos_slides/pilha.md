@@ -45,7 +45,6 @@ A Pilha é uma estrutura de dados que segue a regra **LIFO** (*Last-In, First-Ou
 
 Agora, vou mostrar uma demonstração visual do comportamento LIFO da pilha...
 
-*(Este é o seu slide de transição para a demonstração visual, que se aplica a ambas as implementações).*
 
 **Conceitos a Demonstrar:**
 1.  **Push (Empilhar):** Adicionar itens no topo.
